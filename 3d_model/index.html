@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <canvas id="canvas" width="300" height="300"></canvas>
+    
+    <script type="importmap">
+        {
+            "imports": {
+              "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+              "GLTFLoader" : "https://unpkg.com/three@0.141.0/examples/jsm/
+              loaders/GLTFLoader.js"
+            }
+          }
+    </script>
+
+    <!-- 3D model 브라우저 
+        1.장면을 만들고
+        2.브라우저에 렌더링    -->
+
+    <script type="module">
+        import {GLTFLoader} from 'GLTFLoader';
+        import * as THREE from 'three';
+
+        let scene =  new THREE.Scene();
+        let renderer = new THREE.WebGLRenderer({
+            canvas : document.querySelector('#canvas')
+        });
+            // 원근법이 적용된 카메라 
+                               
+        let camera = new THREE.PerspectiveCamera(30,1);
+        camera.position.set(0,0,10);
+
+        let loader = new GLTFLoader();
+        loader.load("./shiba/scene.gltf", function(gltf){
+            scene.add(gltf.scene);
+            renderer.render(scene, camera);
+        });
+
+    </script>
+
+<img src="./shiba/1.PNG">
+
+
+
+</body>
+</html>
